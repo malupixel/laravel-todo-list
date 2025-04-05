@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todo_app
+    restart: unless-stopped
+    volumes:
+      - .:/var/www
+    ports:
+      - 8000:8000
+    depends_on:
+      - mysql
+      - mailhog
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=todo
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=mailhog
+      - MAIL_PORT=1025
+      - MAIL_USERNAME=null
+      - MAIL_PASSWORD=null
+      - MAIL_ENCRYPTION=null
+      - MAIL_FROM_ADDRESS=todo@app.test
+      - MAIL_FROM_NAME="Todo App"
+
+  mysql:
+    image: mysql:8.0
+    container_name: todo_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: todo
+    ports:
+      - 3308:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  node:
+    image: node:20
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    command: sh -c "npm install && npm run dev"
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: todo_mailhog
+    ports:
+      - 8026:8025    # Web UI
+      - 1026:1025    # SMTP
+
+volumes:
+  mysql_data:
