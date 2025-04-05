@@ -1,74 +1,75 @@
 # DONE.md
 
-## Co zostało zrobione
+📄 [View this file in Polish 🇵🇱](DONE_PL.md)
 
-W ramach zadania stworzyłem pełnoprawną aplikację To-Do List w Laravel 11 z obsługą wielu użytkowników, przypomnieniami e-mail, udostępnianiem zadań oraz integracją z Google Calendar. Poniżej szczegółowe informacje o wykonanych funkcjach.
+## What has been done
 
-### Wymagania funkcjonalne
+As part of the task, I created a full-featured To-Do List application in Laravel 11 with multi-user support, email reminders, task sharing, and Google Calendar integration. Below are detailed notes on what was implemented.
 
-1. **CRUD na zadaniach** ✓  
-   - Nazwa zadania (max 255 znaków, wymagane) ✓
-   - Opis (opcjonalnie) ✓
-   - Priorytet: low/medium/high ✓
-   - Status: to-do, in progress, done ✓
-   - Termin wykonania (data, wymagane) ✓
+### Functional Requirements
 
-2. **Przeglądanie zadań z filtrami** ✓
-   - Filtrowanie po priorytecie, statusie i dacie ✓
+1. **CRUD operations on tasks** ✓
+    - Task name (max 255 characters, required) ✓
+    - Description (optional) ✓
+    - Priority: low / medium / high ✓
+    - Status: to-do, in progress, done ✓
+    - Due date (required) ✓
 
-3. **Powiadomienia e-mail** ✓
-   - Wysyłka na 1 dzień przed terminem
-   - Wykorzystano Scheduler, Queue oraz Mailhog
-   - System zapamiętuje, czy powiadomienie zostało wysłane (pole `reminder_sent_at`)
+2. **Task browsing with filters** ✓
+    - Filtering by priority, status, and due date ✓
 
-4. **Walidacja** ✓
-   - Na poziomie formularzy i kontrolerów (Form Requesty)
-   - Błędy wyświetlane na stronie formularza
+3. **Email notifications** ✓
+    - Sent 1 day before due date
+    - Uses Laravel Scheduler, Queue, and Mailhog
+    - System remembers if a notification was sent (`reminder_sent_at` field)
 
-5. **Obsługa wielu użytkowników** ✓
-   - Uwierzytelnianie (breeze, sanctum lub domyślne auth)
-   - Każdy użytkownik widzi tylko swoje zadania
+4. **Validation** ✓
+    - At both form and controller level (Form Requests)
+    - Validation errors are displayed in the UI
 
-6. **Udostępnianie zadania przez link** ✓
-   - Link publiczny z tokenem
-   - Dostępny przez 24 godziny
-   - Widok zadania bez możliwości edycji
+5. **Multi-user support** ✓
+    - Authentication (Laravel Breeze or default auth)
+    - Each user sees only their own tasks
 
----
-
-### Dodatkowe funkcje (bonus)
-
-7. **Historia zmian zadania** ✓
-   - Zmiany zapisywane przy edycji (osobna tabela `task_histories`)
-   - Wyświetlanie historii zmian oraz aktualnego stanu zadania
-
-8. **Integracja z Google Calendar** ✓
-   - Użytkownik może dodać zadanie do kalendarza Google
-   - Obsługa autoryzacji i zapisu wydarzenia przez spatie/laravel-google-calendar
-   - Start i koniec wydarzenia uwzględnia strefę czasową Europe/Warsaw
+6. **Task sharing via link** ✓
+    - Public link with access token
+    - Available for 24 hours
+    - Read-only view (no edit access)
 
 ---
 
-### Wymagania techniczne
+### Bonus Features
+
+7. **Task edit history** ✓
+    - Changes are saved when editing (in a separate `task_histories` table)
+    - Displays both edit history and current task state
+
+8. **Google Calendar integration** ✓
+    - Users can add a task to their Google Calendar
+    - Authorization and event creation handled via `spatie/laravel-google-calendar`
+    - Event start and end time includes `Europe/Warsaw` timezone
+
+---
+
+### Technical Requirements
 
 - Laravel 11 ✓
-- REST API w niektórych przypadkach ✓
-- Eloquent ORM, migracje, relacje ✓
-- Prosty interfejs w Blade + Tailwind ✓
+- REST API used where appropriate ✓
+- Eloquent ORM, migrations, relationships ✓
+- Clean Blade UI with Tailwind CSS ✓
 - Docker (nginx, php, mariadb, mailhog) ✓
 
 ---
 
-### Uwagi i przemyślenia
+### Notes & Reflections
 
-- Cała aplikacja jest przetestowana lokalnie i działa bezbłędnie.
-- Scheduler działa jako osobny proces (`php artisan schedule:work`) w kontenerze.
-- Wdrożenie Google Calendar jest nieco problematyczne ze względu na proces autoryzacji i ograniczenia testowe Google, ale działa lokalnie.
-- Projekt był rozwijany z myślą o czytelności kodu, rozdzieleniu odpowiedzialności i zgodnie z praktykami Laravel.
+- The entire app is tested locally and works as expected.
+- Scheduler runs as a separate process via `php artisan schedule:work` inside Docker.
+- Google Calendar integration can be tricky due to Google’s verification flow but works in testing.
+- Project was built with code clarity, responsibility separation, and Laravel best practices in mind.
 
 ---
 
-### Autor
-Łukasz Matejka. (contact@phpdeveloper.pl)
+### Author
 
-
+Łukasz Matejka (contact@phpdeveloper.pl)

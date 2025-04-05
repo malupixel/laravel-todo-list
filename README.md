@@ -1,10 +1,13 @@
+[🇵🇱 Kliknij tutaj, aby przeczytać wersję po polsku](./README_PL.md)
+
 # To-Do List (Laravel 11)
 
-Aplikacja umożliwia tworzenie i zarządzanie zadaniami (CRUD), filtrowanie, udostępnianie zadań publicznie, wysyłanie przypomnień e-mail oraz integrację z Google Kalendarzem.
+A simple task management app built with Laravel 11.  
+It supports full task CRUD, filtering, public sharing, email reminders, and Google Calendar integration.
 
 ---
 
-## Wymagania
+## Requirements
 
 - PHP 8.3+
 - Composer
@@ -12,94 +15,93 @@ Aplikacja umożliwia tworzenie i zarządzanie zadaniami (CRUD), filtrowanie, udo
 
 ---
 
-## Uruchomienie projektu (Docker)
+## Getting Started (Docker)
 
-1. **Sklonuj repozytorium:**
+1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/twoje-repozytorium/todo-list.git
-   cd todo-list
+   git clone https://github.com/malupixel/laravel-todo-list.git
+   cd laravel-todo-list
    ```
 
-2. **Skopiuj plik **``** i dostosuj w razie potrzeby:**
+2. **Copy `.env.example` and adjust it if needed:**
 
    ```bash
    cp .env.example .env
    ```
 
-3. **Uruchom kontenery Dockera:**
+3. **Start Docker containers:**
 
    ```bash
    docker-compose up -d --build
    ```
 
-4. **Zainstaluj zależności i przeprowadź migracje:**
+4. **Install dependencies and run migrations:**
 
    ```bash
-   docker exec -it todo_php bash
+   docker exec -it todo_app bash
    composer install
    php artisan migrate
    php artisan db:seed
    ```
 
-5. **Uruchom Vite (jeśli chcesz korzystać z live reload):**
+5. **Run Vite (for live reload):**
 
-   W osobnym terminalu:
+   In a separate terminal:
 
    ```bash
-   docker exec -it todo_php bash
+   docker exec -it todo_app bash
    npm install
    npm run dev -- --host 0.0.0.0
    ```
 
-6. **Dostęp do aplikacji:**
+6. **Access the app:**
 
-    - Aplikacja: [http://localhost:8000](http://localhost:8000)
-    - MailHog (podgląd e-maili): [http://localhost:8026](http://localhost:8026)
+   - App: [http://localhost:8000](http://localhost:8000)
+   - MailHog (email preview): [http://localhost:8026](http://localhost:8026)
 
 ---
 
-## Zadania cron / schedule
+## Cron / Scheduled Tasks
 
-Aby działały przypomnienia e-mail:
+To enable email reminders:
 
 ```bash
 php artisan schedule:work
 ```
 
-Możesz dodać wpis cron na serwerze produkcyjnym:
+For production, add a cron entry:
 
 ```cron
-* * * * * cd /sciezka/do/projektu && php artisan schedule:run >> /dev/null 2>&1
+* * * * * cd /path/to/project && php artisan schedule:run >> /dev/null 2>&1
 ```
 
 ---
 
-## Google Calendar
+## Google Calendar Integration
 
-1. Skonfiguruj dane API Google i zapisz jako `storage/app/google-calendar/credentials.json`
+1. Set up Google API credentials and save the file as:  
+   `storage/app/google-calendar/credentials.json`
 
-2. Uruchom autoryzację:
+2. Run authorization process:
 
    ```bash
    php calendar-auth.php
    ```
 
-3. Po zalogowaniu możesz dodawać zadania do kalendarza.
+3. After login, you’ll be able to add tasks to Google Calendar.
 
 ---
 
-## Przed zalogowaniem
+## User Registration
 
-Podczas uruchomienia aplikacji nie są tworzone żadne konta użytkowników automatycznie.
-Zarejestruj się przez formularz rejestracji (/register), aby rozpocząć korzystanie z aplikacji.
-
+By default, no users are created automatically.  
+Register manually using the `/register` form to start using the app.
 
 ---
 
-## Autor
+## Author
 
-Projekt zrealizowany w ramach zadania rekrutacyjnego.
+Project completed as part of a recruitment assignment.
 
-Repozytorium: [https://github.com/twoje-repozytorium/todo-list](https://github.com/twoje-repozytorium/todo-list)
-
+Repository: [https://github.com/malupixel/laravel-todo-list](https://github.com/malupixel/laravel-todo-list)
